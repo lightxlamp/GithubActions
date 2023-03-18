@@ -1,0 +1,8 @@
+name: Demo Workflow
+on: workflow_dispatch
+jobs: 
+  my_print:
+    runs-on: ubuntu-latest
+    steps: 
+      -name: Print to console 
+      run: echo My first Github Action
