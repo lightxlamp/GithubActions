@@ -2,6 +2,7 @@ name: Test React App
 on: push
 jobs:
   test react app:
+    runs-on: ubuntu-latest
     steps:
       - name: Get Access to repo
         uses: actions/checkout@v3
