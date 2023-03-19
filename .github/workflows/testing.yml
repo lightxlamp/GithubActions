@@ -7,7 +7,9 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
       - name: Install dependencies
+        working-directory: ./react-gh-actions
         run: npm ci # We can use npm install as well. But this is better and more safe.
         # works if we have package-lock.json in our folder. CI mentioned in recommendations
       - name: Test application
+        working-directory: ./react-gh-actions
         run: npm run test
