@@ -1,11 +1,13 @@
 name: Test React App
+
 on: push
+
 jobs:
   test_react_app:
     runs-on: ubuntu-latest
     defaults:
-    run:
-      working-directory: ./app
+      run:
+        working-directory: ./app
     steps:
       - name: Get Access to repo
         uses: actions/checkout@v3
