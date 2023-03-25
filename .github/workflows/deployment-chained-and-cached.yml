@@ -1,4 +1,4 @@
-name: Deploy React App Chained
+name: Deploy React App Chained (Cached dependencies )
 
 on: workflow_dispatch # Before was a "push" value
 
