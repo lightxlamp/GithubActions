@@ -1,0 +1,13 @@
+name: Print Pull Request Context
+
+on: workflow_dispatch # Before was a "push" value
+
+jobs:
+  print:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-gh-actions
+    steps:
+      - name: Print context
+        run: echo "${{ github }}"
