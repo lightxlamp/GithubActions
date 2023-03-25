@@ -9,3 +9,7 @@ Checkout action
 - https://stackoverflow.com/questions/58139175/running-actions-in-another-directory
 
 - https://github.com/marketplace/actions/cache
+
+03, 04 screens added
+Worked faster without cached dependencies.
+Need to research this
