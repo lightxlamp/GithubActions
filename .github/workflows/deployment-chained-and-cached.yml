@@ -12,12 +12,13 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
       - name: Cache node modules
-        id: myCacheStep
         uses: actions/cache@v3
+        id: cache
         with:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci # We can use npm install as well. But this is better and more safe.
         # works if we have package-lock.json in our folder. CI mentioned in recommendations
       - name: Test application
@@ -32,7 +33,7 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
       - name: Re-use or install cached Node Modules
-        if: steps.myCacheStep.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci # We can use npm install as well. But this is better and more safe.
         # works if we have package-lock.json in our folder. CI mentioned in recommendations
       - name: Lint application
@@ -47,7 +48,7 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
       - name: Re-use or install cached Node Modules
-        if: steps.myCacheStep.outputs.cache-hit != 'true'
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci # We can use npm install as well. But this is better and more safe.
         # works if we have package-lock.json in our folder. CI mentioned in recommendations
       - name: Build application
