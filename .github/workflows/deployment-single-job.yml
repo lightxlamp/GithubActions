@@ -1,6 +1,9 @@
 name: Deploy React App Chained
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - "main"
 
 jobs:
   test_react_app:
