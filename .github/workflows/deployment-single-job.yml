@@ -1,11 +1,11 @@
-name: Deploy React App Chained
+name: Deploy React App Single Job
 
 on:
   push:
     branches:
       - "main"
     paths-ignore:
-      - "./github/workflows/*"
+      - ".github/workflows/*"
 
 jobs:
   test_react_app:
