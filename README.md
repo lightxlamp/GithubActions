@@ -13,3 +13,6 @@ Checkout action
 03, 04 screens added
 Worked faster without cached dependencies.
 Need to research this
+
+https://github.com/actions/cache/blob/main/examples.md#node---npm
+https://www.youtube.com/watch?v=BDQivAobxKA&ab_channel=CoderDave
