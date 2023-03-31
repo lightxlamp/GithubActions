@@ -1,4 +1,4 @@
-name: Deploy React App Chained (Cached dependencies )
+name: Deploy React App Chained. Cached dependencies
 
 on: workflow_dispatch # Before was a "push" value
 
@@ -52,14 +52,10 @@ jobs:
     steps:
       - name: Get Access to repo
         uses: actions/checkout@v3
+
       - name: Re-use or install cached Node Modules
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-        # works if we have package-lock.json in our folder. CI mentioned in recommendations
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm ci
+
       - name: Build application
-        run: npm run lint
-      - name: Deploy
-        run: echo Deploying...
+        run: npm run build
