@@ -12,10 +12,6 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm install
-
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -23,6 +19,10 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Test application
         run: npm run test
