@@ -12,16 +12,17 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
-      - name: Cache node modules
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-node-
-
       - name: Install dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Test application
         run: npm run test
@@ -36,9 +37,11 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
-      - name: Re-use or install cached Node Modules
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Restore dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Lint application
         run: npm run lint
@@ -53,9 +56,11 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
-      - name: Re-use or install cached Node Modules
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Restore dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Build application
         run: npm run build
