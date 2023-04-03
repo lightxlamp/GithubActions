@@ -8,6 +8,7 @@ jobs:
     defaults:
       run:
         working-directory: ./nuxt-gh-actions
+    steps:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
@@ -35,25 +36,6 @@ jobs:
 
       - name: Test application
         run: npm run dev
-
-  # lint_react_app:
-  #   runs-on: ubuntu-latest
-  #   needs: test_react_app
-  #   defaults:
-  #     run:
-  #       working-directory: ./nuxt-gh-actions
-  #   steps:
-  #     - name: Get Access to repo
-  #       uses: actions/checkout@v3
-
-  #     - name: Restore dependencies
-  #       uses: actions/cache@v2
-  #       with:
-  #         path: ~/.npm
-  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-
-  #     - name: Lint application
-  #       run: npm run lint
 
   build_react_app:
     runs-on: ubuntu-latest
