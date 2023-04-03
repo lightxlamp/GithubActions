@@ -16,3 +16,7 @@ Need to research this
 
 https://github.com/actions/cache/blob/main/examples.md#node---npm
 https://www.youtube.com/watch?v=BDQivAobxKA&ab_channel=CoderDave
+
+From chat GPT:
+
+> This step uses the npm ci command to install the project dependencies. This command is preferred over npm install in production environments because it installs the exact versions of packages specified in package-lock.json.
