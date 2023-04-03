@@ -27,14 +27,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          pwd
-          npm cache clean --force
-          npm install
-
-      - name: Test application
+      - name: Run App in dev mode
         run: npm run dev
 
   build_nuxt_app:
@@ -51,11 +44,18 @@ jobs:
         run: |
           pwd
 
-      - name: Restore dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pwd
+          npm cache clean --force
+          npm install
+
+      # - name: Restore dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
       - name: Echo current directory
         run: |
