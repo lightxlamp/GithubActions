@@ -37,9 +37,9 @@ jobs:
       - name: Test application
         run: npm run dev
 
-  build_react_app:
+  build_nuxt_app:
     runs-on: ubuntu-latest
-    needs: test_react_app
+    needs: test_nuxt_app
     defaults:
       run:
         working-directory: ./nuxt-gh-actions
