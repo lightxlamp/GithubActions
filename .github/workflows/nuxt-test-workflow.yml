@@ -1,0 +1,83 @@
+name: Deploy Nuxt App. Cached dependencies
+
+on: workflow_dispatch
+
+jobs:
+  test_nuxt_app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./nuxt-gh-actions
+      - name: Get Access to repo
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pwd
+          npm cache clean --force
+          npm install
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pwd
+          npm cache clean --force
+          npm install
+
+      - name: Test application
+        run: npm run dev
+
+  # lint_react_app:
+  #   runs-on: ubuntu-latest
+  #   needs: test_react_app
+  #   defaults:
+  #     run:
+  #       working-directory: ./nuxt-gh-actions
+  #   steps:
+  #     - name: Get Access to repo
+  #       uses: actions/checkout@v3
+
+  #     - name: Restore dependencies
+  #       uses: actions/cache@v2
+  #       with:
+  #         path: ~/.npm
+  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+  #     - name: Lint application
+  #       run: npm run lint
+
+  build_react_app:
+    runs-on: ubuntu-latest
+    needs: test_react_app
+    defaults:
+      run:
+        working-directory: ./nuxt-gh-actions
+    steps:
+      - name: Get Access to repo
+        uses: actions/checkout@v3
+
+      - name: Echo current directory
+        run: |
+          pwd
+
+      - name: Restore dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Echo current directory
+        run: |
+          pwd
+
+      - name: Build application
+        run: npm run build
