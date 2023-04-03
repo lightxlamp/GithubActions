@@ -43,7 +43,7 @@ jobs:
   #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
 
   #     - name: Lint application
-  #       run: npm run lint
+  #       run: npm run lint #
 
   build_react_app:
     runs-on: ubuntu-latest
