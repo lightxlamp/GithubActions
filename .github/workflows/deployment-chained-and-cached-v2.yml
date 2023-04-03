@@ -1,4 +1,4 @@
-name: Deploy React App. Cached dependencies
+name: Deploy React App. Cached dependencies v2
 
 on: workflow_dispatch
 
