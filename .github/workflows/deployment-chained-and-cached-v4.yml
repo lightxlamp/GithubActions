@@ -51,7 +51,7 @@ jobs:
         if: steps.cache-for-building.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Build application
+      - name: Lint application
         run: npm run lint
 
   build_react_app:
