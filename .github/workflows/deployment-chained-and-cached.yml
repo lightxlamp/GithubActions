@@ -1,6 +1,6 @@
-name: Deploy React App Chained. Cached dependencies
+name: Deploy React App. Cached dependencies
 
-on: workflow_dispatch # Before was a "push" value
+on: workflow_dispatch
 
 jobs:
   test_react_app:
@@ -12,6 +12,13 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pwd
+          npm cache clean --force
+          npm install
+
       - name: Cache node modules
         uses: actions/cache@v2
         with:
@@ -19,13 +26,6 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: |
-          pwd
-          npm cache clean --force
-          npm install
 
       - name: Test application
         run: npm run test
@@ -63,11 +63,18 @@ jobs:
         run: |
           pwd
 
-      - name: Restore dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      # - name: Restore dependencies
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          pwd
+          npm cache clean --force
+          npm install
 
       - name: Echo current directory
         run: |
