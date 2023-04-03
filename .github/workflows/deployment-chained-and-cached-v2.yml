@@ -1,6 +1,6 @@
 name: Deploy React App. Cached dependencies v2
 
-on: push
+on: workflow_dispatch
 
 jobs:
   test_react_app:
