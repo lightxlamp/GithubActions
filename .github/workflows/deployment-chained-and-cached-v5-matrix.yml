@@ -70,7 +70,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ node-version.os }}
+          node-version: ${{ matrix.node-version }}
 
       - name: Cache modules
         id: cache-for-building
