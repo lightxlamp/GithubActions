@@ -28,6 +28,10 @@ jobs:
       - name: Build application
         run: npm run build
 
+      - name: List build directory contents
+        run: |
+          ls -la build/
+
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
