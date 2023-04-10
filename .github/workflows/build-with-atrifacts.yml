@@ -1,0 +1,35 @@
+name: Build with Artifacts
+
+on: workflow_dispatch
+
+jobs:
+  build_react_app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-gh-actions
+    steps:
+      - name: Get Access to repo
+        uses: actions/checkout@v3
+
+      - name: Cache modules
+        id: cache-for-building
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-for-building.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@3
+        with:
+          path: build
+          name: build-files
