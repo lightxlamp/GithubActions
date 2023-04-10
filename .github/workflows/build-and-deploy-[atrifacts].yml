@@ -1,4 +1,4 @@
-name: Build & Deploy App [Artifacts]
+name: Build and Deploy App [Artifacts]
 
 on: workflow_dispatch
 
@@ -33,9 +33,11 @@ jobs:
         with:
           path: build
           name: build-files
+
   deploy:
     needs: build_react_app
     runs-on: ubuntu-latest
+
     steps:
       - name: Get built project
       - uses: actions/download-artifact@v3
