@@ -1,4 +1,4 @@
-name: Build and Deploy App [Artifacts]
+name: Build & Deploy App [Artifacts]
 
 on: workflow_dispatch
 
@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: Get built project
-      - uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: build-files
 
