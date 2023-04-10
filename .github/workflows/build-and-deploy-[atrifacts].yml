@@ -29,13 +29,12 @@ jobs:
         run: npm run build
 
       - name: Verify build directory
-        run: |
-          ls -R build
+        run: ls -R ./build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          path: build
+          path: ./react-gh-actions/build
           name: build-files
 
   deploy:
