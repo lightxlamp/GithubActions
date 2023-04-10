@@ -23,3 +23,6 @@ From chat GPT:
 
 Finally: thi article helped with caching: https://dev.to/mattpocockuk/how-to-cache-nodemodules-in-github-actions-with-yarn-24eh
 I was using a wrong path for cache
+
+Artifacts:
+https://stackoverflow.com/questions/66998799/no-files-were-found-with-the-provided-path-build-no-artifacts-will-be-uploaded
