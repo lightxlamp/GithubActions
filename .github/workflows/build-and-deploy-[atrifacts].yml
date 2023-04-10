@@ -33,7 +33,7 @@ jobs:
           ls -R build
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           path: build
           name: build-files
