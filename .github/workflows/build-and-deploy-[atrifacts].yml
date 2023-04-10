@@ -40,9 +40,6 @@ jobs:
   deploy:
     needs: build_react_app
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./react-gh-actions
 
     steps:
       - name: Get built project
