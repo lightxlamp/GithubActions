@@ -1,0 +1,45 @@
+name: Deploy Master environment
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /var/www/fly
+            sudo git reset --hard origin/master
+            sudo git pull origin master
+            curl -i https://www.fly.com/?foo
+            echo "Done!"
+          host: ec2-18-192-253-119.eu-central-1.compute.amazonaws.com
+          user: ubuntu
+          key: ${{ secrets.KEY }}
+      - name: Deploy Cron
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd /home/ec2-user/cron/fly
+            git reset --hard origin/master
+            git pull origin master
+            echo "Done!"
+          host: ec2-3-65-236-170.eu-central-1.compute.amazonaws.com
+          user: ec2-user
+          key: ${{ secrets.KEY }}
+      - name: Notify Slack Channel
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data "$(printf '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"Author: %s\nMessage: %s\nRepository: %s\nCommit: %s"}}]}' \
+          "${{ github.event.commits[0].author.name }}" \
+          "${{ github.event.commits[0].message }}" \
+          "${{ github.repository }}" \
+          "${{ github.event.commits[0].url }}" \
+          )" \
+          ${{ secrets.SLACK_CHANNEL }}
