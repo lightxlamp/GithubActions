@@ -24,7 +24,7 @@ jobs:
 
           payload='{
             "text": "
-            *Repository Name*: '"$repository_name"'\n
+             *Repository Name*: '"$repository_name"'\n
             *Repository URL*: '"$repository_url"'\n
             *Commit Message*: '"$commit_message"'\n
             *Commit Author*: '"$commit_author"'\n
