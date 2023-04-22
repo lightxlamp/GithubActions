@@ -17,7 +17,8 @@ jobs:
         run: |
           commit_message=$(git log -1 --pretty=format:"%s")
           commit_author=$(git log -1 --pretty=format:"%an")
-          commit_url=$(git log -1 --pretty=format:"%b" | grep -oP '(?<=\[ci-skip\] ).+' || echo $GITHUB_SHA)
+          commit_sha=$(git log -1 --pretty=format:"%H")
+          commit_url="https://github.com/$GITHUB_REPOSITORY/commit/$commit_sha"
           repository_name=$(basename $GITHUB_REPOSITORY)
           repository_url="https://github.com/$GITHUB_REPOSITORY"
 
@@ -25,7 +26,6 @@ jobs:
             "text": "This is a notification from GitHub Actions!",
             "attachments": [
               {
-                "title": "Repository Details",
                 "fields": [
                   {
                     "title": "Repository Name",
