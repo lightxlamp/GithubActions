@@ -2,11 +2,6 @@ name: Test Custom Slack Notification
 
 on: workflow_dispatch
 
-# on:
-#   push:
-#     branches:
-#       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
