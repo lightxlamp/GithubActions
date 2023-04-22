@@ -1,0 +1,59 @@
+name: Notify Slack Channel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Slack Channel
+        run: |
+          commit_message=$(git log -1 --pretty=format:"%s")
+          commit_author=$(git log -1 --pretty=format:"%an")
+          commit_url=$(git log -1 --pretty=format:"%b" | grep -oP '(?<=\[ci-skip\] ).+' || echo $GITHUB_SHA)
+          repository_name=$(basename $GITHUB_REPOSITORY)
+          repository_url="https://github.com/$GITHUB_REPOSITORY"
+
+          payload='{
+            "text": "This is a notification from GitHub Actions!",
+            "attachments": [
+              {
+                "title": "Repository Details",
+                "fields": [
+                  {
+                    "title": "Repository Name",
+                    "value": "'"$repository_name"'",
+                    "short": true
+                  },
+                  {
+                    "title": "Repository URL",
+                    "value": "'"$repository_url"'",
+                    "short": false
+                  },
+                  {
+                    "title": "Commit Message",
+                    "value": "'"$commit_message"'",
+                    "short": false
+                  },
+                  {
+                    "title": "Commit Author",
+                    "value": "'"$commit_author"'",
+                    "short": true
+                  },
+                  {
+                    "title": "Commit URL",
+                    "value": "'"$commit_url"'",
+                    "short": true
+                  }
+                ]
+              }
+            ]
+          }'
+
+          curl -X POST -H 'Content-type: application/json' \
+          --data "$payload" \
+          ${{ secrets.WEBHOOK_URL_FOR_LEARNING_CHANNEL }}
