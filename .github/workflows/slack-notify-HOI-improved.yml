@@ -1,10 +1,17 @@
 name: Notify Slack Channel
 
-on: push
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  notify:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Access to repo
+        uses: actions/checkout@v3
 
     steps:
       - name: Notify Slack Channel
