@@ -1,5 +1,7 @@
 name: Deploy Master environment
 
+on: workflow_dispatch
+
 # on:
 #   push:
 #     branches:
