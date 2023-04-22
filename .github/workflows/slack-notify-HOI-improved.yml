@@ -23,33 +23,27 @@ jobs:
           repository_url="https://github.com/$GITHUB_REPOSITORY"
 
           payload='{
-            "text": "This is a notification from GitHub Actions!",
             "attachments": [
               {
                 "fields": [
                   {
                     "title": "Repository Name",
-                    "value": "'"$repository_name"'",
+                    "value": "- '"$repository_name"'",
                     "short": true
                   },
                   {
-                    "title": "Repository URL",
-                    "value": "'"$repository_url"'",
-                    "short": false
-                  },
-                  {
                     "title": "Commit Message",
-                    "value": "'"$commit_message"'",
+                    "value": "- '"$commit_message"'",
                     "short": false
                   },
                   {
                     "title": "Commit Author",
-                    "value": "'"$commit_author"'",
+                    "value": "- '"$commit_author"'",
                     "short": true
                   },
                   {
                     "title": "Commit URL",
-                    "value": "'"$commit_url"'",
+                    "value": "- '"$commit_url"'",
                     "short": true
                   }
                 ]
