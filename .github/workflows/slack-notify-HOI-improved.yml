@@ -1,9 +1,6 @@
 name: Notify Slack Channel
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   notify:

@@ -1,0 +1,33 @@
+name: Notify Slack Channel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get Access to repo
+        uses: actions/checkout@v3
+
+      - name: Notify Slack Channel
+        run: |
+          commit_message=$(git log -1 --pretty=format:"%s")
+          commit_author=$(git log -1 --pretty=format:"%an")
+          commit_sha=$(git log -1 --pretty=format:"%H")
+          commit_url="https://github.com/$GITHUB_REPOSITORY/commit/$commit_sha"
+          repository_name=$(basename $GITHUB_REPOSITORY)
+          repository_url="https://github.com/$GITHUB_REPOSITORY"
+
+          payload='{
+            "text": "*This is a notification from GitHub Actions!*\n\n
+            Repository Details:\n
+            Repository Name: '"$repository_name"'\nRepository URL: '"$repository_url"'\nCommit Message: '"$commit_message"'\nCommit Author: '"$commit_author"'\nCommit URL: '"$commit_url"'"
+          }'
+
+          curl -X POST -H 'Content-type: application/json' \
+          --data "$payload" \
+          ${{ secrets.WEBHOOK_URL_FOR_LEARNING_CHANNEL }}
