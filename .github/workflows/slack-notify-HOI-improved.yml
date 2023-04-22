@@ -13,7 +13,6 @@ jobs:
       - name: Get Access to repo
         uses: actions/checkout@v3
 
-    steps:
       - name: Notify Slack Channel
         run: |
           commit_message=$(git log -1 --pretty=format:"%s")
