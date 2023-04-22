@@ -23,9 +23,12 @@ jobs:
           repository_url="https://github.com/$GITHUB_REPOSITORY"
 
           payload='{
-            "text": "*This is a notification from GitHub Actions!*\n\n
-            Repository Details:\n
-            Repository Name: '"$repository_name"'\nRepository URL: '"$repository_url"'\nCommit Message: '"$commit_message"'\nCommit Author: '"$commit_author"'\nCommit URL: '"$commit_url"'"
+            "text": "
+            *Repository Name*: '"$repository_name"'\n
+            *Repository URL*: '"$repository_url"'\n
+            *Commit Message*: '"$commit_message"'\n
+            *Commit Author*: '"$commit_author"'\n
+            *Commit URL*: '"$commit_url"'"
           }'
 
           curl -X POST -H 'Content-type: application/json' \
