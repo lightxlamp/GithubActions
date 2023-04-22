@@ -1,0 +1,15 @@
+name: Test Custom Slack Notification
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Slack Channel
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' ${{ secrets.WEBHOOK_URL_FOR_LEARNING_CHANNEL }}
