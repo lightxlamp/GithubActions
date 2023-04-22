@@ -1,0 +1,22 @@
+name: Deploy Master environment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Notify Slack Channel
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data "$(printf '{"blocks":[{"type":"section","text":{"type":"mrkdwn","text":"Author: %s\nMessage: %s\nRepository: %s\nCommit: %s"}}]}' \
+          "${{ github.event.commits[0].author.name }}" \
+          "${{ github.event.commits[0].message }}" \
+          "${{ github.repository }}" \
+          "${{ github.event.commits[0].url }}" \
+          )" \
+          ${{ secrets.WEBHOOK_URL_FOR_LEARNING_CHANNEL }}
