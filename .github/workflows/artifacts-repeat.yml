@@ -8,15 +8,15 @@ jobs:
     defaults:
       run:
         working-directory: ./react-gh-actions
-      steps:
-        - name: get code
-          uses: actions/checkout@v3
-        - name: Install deps
-          run: npm ci
-        - name: Build Project
-          run: npm run build
-        - name: Upload Artifact
-          uses: actions/upload-artifact@v3
-          with:
-            path: ./react-gh-actions/build
-            name: custom=name-for-build-files
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: Install deps
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./react-gh-actions/build
+          name: custom=name-for-build-files
