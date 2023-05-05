@@ -1,0 +1,20 @@
+name: Artifacts Test
+on: workflow_dispatch
+jobs:
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: ./react-gh-actions
+  build:
+    steps:
+      - name: get code
+        uses: actions/checkout@v3
+      - name: Install deps
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: ./react-gh-actions/build
+          name: custom=name-for-build-files
