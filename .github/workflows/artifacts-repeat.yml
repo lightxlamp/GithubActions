@@ -3,7 +3,7 @@ name: Artifacts Test
 on: workflow_dispatch
 
 jobs:
-  repeat-artifacts:
+  repeat-artifacts-build:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -19,4 +19,15 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           path: ./react-gh-actions/build
+          name: custom=name-for-build-files
+  repeat-artifacts-deploy:
+    needs: repeat-artifacts-build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./react-gh-actions
+    steps:
+      - name: Get Built project
+        uses: actions/download-artifact@v3
+        with:
           name: custom=name-for-build-files
